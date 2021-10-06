@@ -11,14 +11,14 @@ directory = "./mitdbannotationsfile"
 for filename in sorted(os.listdir(directory)):
         if filename.endswith(".txt"):
             fil.append(filename)
-with open('./DatasetC.csv', 'w') as f:
+with open('./Dataset.csv', 'w') as f:
     writer = csv.writer(f)
     writer.writerow((headers))
-    file = pd.read_csv("ReqOutput2.csv")
+    file = pd.read_csv("ReqOutput.csv")
     file["start"].replace(' ', np.nan, inplace=True)
     df = file[["filename", "start", "end"]].dropna()
     count = 0
-    while count < 26155580*0.1:
+    while count < 2618691*0.1:
         ff = random.sample(fil, 1)
         fff = ff[0]
         samdf = df[df["filename"] == fff]
@@ -29,13 +29,8 @@ with open('./DatasetC.csv', 'w') as f:
             row.append("Test")
             writer.writerow(row)
             df = df[df["filename"] != fff]
-            if count > 26155580*0.1:
-                flag = 1
-                break
-        if flag == 1:
-            break
     count = 0
-    while count < 26155580*0.1:
+    while count < 2618691*0.1:
         ff = random.sample(fil, 1)
         fff = ff[0]
         samdf = df[df["filename"] == fff]
@@ -46,12 +41,8 @@ with open('./DatasetC.csv', 'w') as f:
             row.append("Validation")
             writer.writerow(row)
             df = df[df.filename != fff]
-            if count > 26155580*0.1:
-                flag = 1
-                break
-        if flag == 1:
-            break
-    while count < 26155580*0.6:
+    count = 0
+    while count < 2618691*0.6:
         rand = df.sample()
         count += int(rand["end"]) - int(rand["start"])
         row = rand.values[0].tolist()
@@ -59,7 +50,7 @@ with open('./DatasetC.csv', 'w') as f:
         writer.writerow(row)
         df = df.drop(rand.index)
     count = 0
-    while count < 26155580*0.1:
+    while count < 2618691*0.1:
         rand = df.sample()
         count += int(rand["end"]) - int(rand["start"])
         row = rand.values[0].tolist()

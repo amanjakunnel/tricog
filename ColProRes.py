@@ -38,7 +38,7 @@ nsrstart =["ns train start"]
 nsrend = ["ns train end"]
 nsrcum = ["ns train cum"]
 clntstart = ["cln test start"]
-clntend = ["ns test end"]
+clntend = ["cln test end"]
 clntcum = ["cln test cum"]
 nststart = ["ns test start"]
 nstend = ["ns test end"]
@@ -79,8 +79,8 @@ for filename in sorted(os.listdir(directory)):
         for index, row in anno.iterrows():
             if row["Type"] == '~':
                 if flagc == 1:
-                    cleanstart.append(toTime(samplec))
-                    cleanend.append(toTime(row["Sample"]))
+                    cleanstart.append(samplec)
+                    cleanend.append(row["Sample"])
                     clncount += 1
                     cleancount += row["Sample"] - samplec
                     flagc = 0
@@ -89,8 +89,8 @@ for filename in sorted(os.listdir(directory)):
                     samplen = row["Sample"]
                     flagn = 1
                 else:
-                    noisystart.append(toTime(samplen))
-                    noisyend.append(toTime(row["Sample"]))
+                    noisystart.append(samplen)
+                    noisyend.append(row["Sample"])
                     nscount += 1
                     noisycount += row["Sample"] - samplen
                     flagn = 0
@@ -99,8 +99,8 @@ for filename in sorted(os.listdir(directory)):
                     startc = row["Time"]
                     samplec = row["Sample"]
                     flagc = 1
-        cleanstart.append(toTime(samplec))
-        cleanend.append(toTime(row["Sample"]))
+        cleanstart.append(samplec)
+        cleanend.append(row["Sample"])
         clncount += 1
         cleancount += row["Sample"] - samplec
         crc = 0
@@ -112,51 +112,51 @@ for filename in sorted(os.listdir(directory)):
         fileclean = cleanset[cleanset["filename"]==filename]
         for idx, r in fileclean.iterrows():
             if r["set type"] == "Training":
-                clnrstart.append(toTime(r["start"]))
-                clnrend.append(toTime(r["end"]))
+                clnrstart.append(r["start"])
+                clnrend.append(r["end"])
                 clnrcount += 1
                 crc += r["end"] - r["start"]
             if r["set type"] == "Test":
-                clntstart.append(toTime(r["start"]))
-                clntend.append(toTime(r["end"]))
+                clntstart.append(r["start"])
+                clntend.append(r["end"])
                 clntcount += 1
                 ctc += r["end"] - r["start"]
             if r["set type"] == "Validation":
-                clnvstart.append(toTime(r["start"]))
-                clnvend.append(toTime(r["end"]))
+                clnvstart.append(r["start"])
+                clnvend.append(r["end"])
                 clnvcount += 1
                 cvc += r["end"] - r["start"]
         filenoisy = noisyset[noisyset["filename"]==filename]
         for idx, r in filenoisy.iterrows():
             if r["set type"] == "Training":
-                nsrstart.append(toTime(r["start"]))
-                nsrend.append(toTime(r["end"]))
+                nsrstart.append(r["start"])
+                nsrend.append(r["end"])
                 nsrcount += 1
                 nrc += r["end"] - r["start"]
             if r["set type"] == "Test":
-                nststart.append(toTime(r["start"]))
-                nstend.append(toTime(r["end"]))
+                nststart.append(r["start"])
+                nstend.append(r["end"])
                 nstcount += 1
                 ntc += r["end"] - r["start"]
             if r["set type"] == "Validation":
-                nsvstart.append(toTime(r["start"]))
-                nsvend.append(toTime(r["end"]))
+                nsvstart.append(r["start"])
+                nsvend.append(r["end"])
                 nsvcount += 1
                 nvc += r["end"] - r["start"]
-        crc = toTime(crc)
+        '''crc = toTime(crc)
         ctc = toTime(ctc)
         cvc = toTime(cvc)
         nrc = toTime(nrc)
         ntc = toTime(ntc)
-        nvc = toTime(nvc)
+        nvc = toTime(nvc)'''
         '''data.append(round(100*cleancount/(cleancount+noisycount), 2))
         data.append(round(100*noisycount/(cleancount+noisycount), 2))'''
         totalclean += cleancount
         totalnoisy += noisycount
         filecount = max(clncount, nscount, clnrcount, clntcount, clnvcount, nsrcount, nstcount, nsvcount)
         filenames += [filename] * filecount
-        cleancount = toTime(cleancount)
-        noisycount = toTime(noisycount)
+        cleancount = cleancount
+        noisycount = noisycount
         cleancum += [cleancount] * filecount
         noisycum += [noisycount] * filecount
         clnrcum += [crc] * filecount
