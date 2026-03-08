@@ -12,13 +12,13 @@
 Early-stage noise filtering enables reliable arrhythmia detection in wearable ECG devices.
 
 ## 🧠 ML Pipeline
-Proprietary ECG (.dat/.atr) → convert.sh (shell parsing)
+- Proprietary ECG (.dat/.atr) → convert.sh (shell parsing)
                           ↓
-Raw signals → DivSetv2.py (normalization, cleaning)
+- Raw signals → DivSetv2.py (normalization, cleaning)
                           ↓
-Features → DatasetC.csv → CNN (PyTorch) vs SVM baseline
+- Features → DatasetC.csv → CNN (PyTorch) vs SVM baseline
                           ↓
-90% accuracy → ColmOutput.csv + plots/
+- 90% accuracy → ColmOutput.csv + plots/
 
 ## 🚀 Quick Start
 
